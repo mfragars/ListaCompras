@@ -15,8 +15,11 @@ class App:
         status = 'Open'
         lista = Lista(None, nome, today, status)
         lista.id = self.listaDao.insertLista(lista)
-        
-        self.putItemLista(lista.id)
+        option = int(input("Deseja inserir produtos na lista agora? 1-Sim|0-Não "))
+        if option == 1:
+            self.putItemLista(lista.id)
+        else:
+            print("Lista criada com sucesso!!!")
 
     def putItemLista(self, id):
         self.id = id
@@ -50,13 +53,20 @@ class App:
         escolha = int(input("Informe o id da lista para encerrar: "))
         self.listaDao.closeLista(escolha)
 
+    def exibirLista(self):
+        self.listaDao.showLists()
+        id = int(input("Informe o id da lista para exibição dos itens: "))
+        self.listaDao.getItensFromLista(id)
+
     def Menu(self):
         menu = ''' \n\n\nMenu
 0 - Finalizar
 1 - Criar Lista
 2 - Exibir Lista
-3 - Check Produto pego
-4 - Encerrar Lista
+3 - Inserir produto na lista
+4 - Check Produto pego
+5 - Exibir produtos da lista
+6 - Encerrar Lista
 Escolha: '''
         option = ''
 
@@ -66,9 +76,15 @@ Escolha: '''
                 self.criaLista()
             elif option == 2:
                 self.listaDao.showLists()
-            elif option == 3:
-                self.marcaProdutoLIsta()
+            elif option ==3:
+                self.listaDao.showLists()
+                id = int(input("Informe o id da lista para inclusão de item: "))
+                self.putItemLista(id)
             elif option == 4:
+                self.marcaProdutoLIsta()
+            elif option == 5:
+                self.exibirLista()
+            elif option == 6:
                 self.closeLista()
             elif option == 0:
                 print("Fim da execução!!!")
