@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS lista;
+CREATE TABLE lista (
+id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+listName VARCHAR(36) NOT NULL,
+createDate DATE,
+listStatus ENUM('Open', 'Done'),
+PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS itemlista;
+CREATE TABLE itemLista (
+id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+idLista INT(10) UNSIGNED NOT NULL,
+item VARCHAR(64) NOT NULL,
+quantidade DECIMAL(10,2),
+itemStatus ENUM('Picked', 'Not Picked'),
+PRIMARY KEY (id),
+KEY IX_LISTA (idLista)
+);
